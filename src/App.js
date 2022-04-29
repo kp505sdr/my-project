@@ -1,24 +1,36 @@
-import logo from './logo.svg';
-import './App.css';
-
+import React, { useState } from "react";
+import "./App.css";
+import Finish from "../src/component/Finish";
+import Step1 from "../src/component/Step1";
+import Step2 from "../src/component/Step2";
+import Step3 from "../src/component/Step3";
+import Steper from "../src/component/steps/Steper";
 function App() {
+  // --------------steper strat-------------------------
+  const [step, Setstep] = useState(1);
+  const StepChange = () => {
+    Setstep(step + 1);
+  };
+  const StepBack = () => {
+    Setstep(step - 1);
+  };
+  // ------------ steper end----------------------------
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <div className="main-app-div">
+        {/* ------------prop passed in steper component */}
+        <div className="first-div">
+          <Steper step={step} />
+        </div>
+        {/* page navigation using state */}
+        <div className="second-div">
+          {step === 1 && <Step1 StepChange={StepChange} />}
+          {step === 2 && <Step2 StepChange={StepChange} StepBack={StepBack} />}
+          {step === 3 && <Step3 StepChange={StepChange} StepBack={StepBack} />}
+          {step === 4 && <Finish />}
+        </div>
+      </div>
+    </>
   );
 }
 
